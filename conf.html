@@ -1,0 +1,971 @@
+<!DOCTYPE html
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confeitaria 5 Irmãos | Tradição & Sabor Caseiro</title>
+
+    <!-- Tailwind CSS CDN -->
+    <<script src="https://cdn.tailwindcss.com"></script>>
+
+    <!-- Google Fonts: Playfair Display & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mustard: {
+                            400: '#F5B025',
+                            500: '#F3A812', // Amarelo Dourado Logo
+                            600: '#E59200',
+                            700: '#C77C00',
+                        },
+                        brown: {
+                            100: '#F4ECE1',
+                            200: '#E6D7C3',
+                            800: '#5A3216',
+                            900: '#4A2810', // Marrom Café Logo
+                            950: '#361C0B',
+                        },
+                        cream: {
+                            50: '#FFFDF7',
+                            100: '#FFF9EE', // Creme Fundo Principal
+                            200: '#F8EED8',
+                            300: '#F0DFBB',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Poppins"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'warm': '0 10px 25px -5px rgba(74, 40, 16, 0.1)',
+                        'gold-glow': '0 0 20px rgba(243, 168, 18, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFF9EE;
+            color: #4A2810;
+        }
+
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Scrollbar customizada mantendo o tema café & mostarda */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF9EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F8EED8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F3A812;
+        }
+
+        .glass-nav {
+            background: rgba(255, 249, 238, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Borda viestada estilo selo / carimbo */
+        .scallop-border {
+            box-shadow: 0 0 0 3px #F3A812, 0 0 0 6px #4A2810;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-mustard-500/20 selection:text-brown-900">
+
+    <!-- Container de Notificações Toast -->
+    <div id="toast-container" class="fixed top-24 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Cabeçalho e Navbar -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-brown-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                
+                <!-- Logomarca "Confeitaria 5 Irmãos" (Vetor baseado na foto da logo) -->
+               <!-- CÓDIGO CORRIGIDO -->
+        <a href="#" class="flex items-center gap-3 group">
+            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold shadow-md group-hover:scale-105 transition-transform">
+                <img src="5 irmaos.jfif" alt="Confeitaria 5 Irmãos" class="w-full h-full object-cover">
+            </div>
+                <div>
+                    <span class="block font-heading font-bold text-xl text-brand-brown tracking-tight leading-none">CONFEITARIA</span>
+                    <span class="block font-heading font-extrabold text-brand-gold text-lg leading-tight">5 IRMÃOS</span>
+                </div>
+        </a>
+
+                <!-- Nav Links para Desktop -->
+                <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-brown-900">
+                    <a href="#inicio" class="hover:text-mustard-600 transition-colors py-1 border-b-2 border-transparent hover:border-mustard-500">Início</a>
+                    <a href="#cardapio" class="hover:text-mustard-600 transition-colors py-1 border-b-2 border-transparent hover:border-mustard-500">Cardápio</a>
+                    <a href="#recomendador" class="hover:text-mustard-600 transition-colors py-1 border-b-2 border-transparent hover:border-mustard-500 flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xs text-mustard-500"></i> Recomendador IA
+                    </a>
+                    <a href="#sobre" class="hover:text-mustard-600 transition-colors py-1 border-b-2 border-transparent hover:border-mustard-500">Nossa História</a>
+                    <a href="#contato" class="hover:text-mustard-600 transition-colors py-1 border-b-2 border-transparent hover:border-mustard-500">Contato</a>
+                </nav>
+
+                <!-- Ações: Ícone do Carrinho & Menu Mobile -->
+                <div class="flex items-center space-x-4">
+                    <button id="open-cart-btn" class="relative p-3 rounded-xl bg-cream-200 hover:bg-mustard-500/20 text-brown-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm border border-brown-200" aria-label="Abrir Carrinho de Compras">
+                        <i class="fa-solid fa-basket-shopping text-lg"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-mustard-500 text-brown-950 font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center border-2 border-cream-100 shadow-sm scale-0 transition-transform duration-300">0</span>
+                    </button>
+
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-brown-900 hover:text-mustard-600 focus:outline-none" aria-label="Menu Mobile">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream-100 border-b border-brown-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
+            <a href="#inicio" class="mobile-link block px-3 py-2 rounded-lg text-brown-900 font-medium hover:bg-cream-200">Início</a>
+            <a href="#cardapio" class="mobile-link block px-3 py-2 rounded-lg text-brown-900 font-medium hover:bg-cream-200">Cardápio Completo</a>
+            <a href="#recomendador" class="mobile-link block px-3 py-2 rounded-lg text-brown-900 font-medium hover:bg-cream-200 flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-mustard-500"></i> Recomendador Inteligente
+            </a>
+            <a href="#sobre" class="mobile-link block px-3 py-2 rounded-lg text-brown-900 font-medium hover:bg-cream-200">Nossa História</a>
+            <a href="#contato" class="mobile-link block px-3 py-2 rounded-lg text-brown-900 font-medium hover:bg-cream-200">Contato & Localização</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative py-12 md:py-20 lg:py-24 overflow-hidden">
+        <!-- Detalhes de Fundo -->
+        <div class="absolute -top-10 -left-10 w-72 h-72 bg-mustard-500/10 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute top-1/2 right-0 w-96 h-96 bg-brown-800/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Coluna de Texto Principal -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cream-200 border border-mustard-500/40 text-brown-900 font-semibold text-xs sm:text-sm shadow-sm">
+                        <i class="fa-solid fa-certificate text-mustard-600"></i>
+                        <span>Receitas de Família Feitas Diariamente com Carinho</span>
+                    </div>
+
+                    <h1 class="font-serif-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brown-900 leading-tight">
+                        O verdadeiro sabor da <br class="hidden sm:inline">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-mustard-600 via-mustard-500 to-brown-900">confeitaria artesanal.</span>
+                    </h1>
+
+                    <p class="text-brown-800/80 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Na <strong>Confeitaria 5 Irmãos</strong>, preparamos bolos fofinhos, tortas recheadas, doces tradicionais e assados dourados. O aconchego do café da tarde entregue direto na sua casa!
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#cardapio" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-mustard-500 hover:bg-mustard-600 text-brown-950 font-bold shadow-md hover:shadow-gold-glow transition-all duration-300 text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Ver Nosso Cardápio</span>
+                        </a>
+                        <a href="#recomendador" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-white border-2 border-brown-200 text-brown-900 hover:bg-cream-200 font-semibold transition-all duration-300 text-center flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles text-mustard-500"></i>
+                            <span>Recomendador Inteligente</span>
+                        </a>
+                    </div>
+
+                    <!-- Selos de Qualidade -->
+                    <div class="pt-8 border-t border-brown-200/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <p class="font-serif-title text-2xl font-bold text-brown-900">100%</p>
+                            <p class="text-xs text-brown-800/70">Ingredientes Selecionados</p>
+                        </div>
+                        <div>
+                            <p class="font-serif-title text-2xl font-bold text-brown-900">Há 5 anos no mercado</p>
+                            <p class="text-xs text-brown-800/70">Adoçando nossas vidas</p>
+                        </div>
+                        <div>
+                            <p class="font-serif-title text-2xl font-bold text-brown-900">Entrega</p>
+                            <p class="text-xs text-brown-800/70">Rápida & Segura</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem Destaque com Borda de Estilo da Logo -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Card da Imagem Principal com Moldura Mostarda/Marrom -->
+                        <div class="relative z-10 rounded-3xl overflow-hidden border-4 border-mustard-500 bg-white p-2 shadow-xl group">
+                            <img src="NRV.jpeg" alt="Bolo de Chocolate Vulcão Confeitaria 5 Irmãos" class="w-full h-[400px] object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700">
+                            
+                            <!-- Banner sobreposto -->
+                            <div class="absolute bottom-6 left-6 right-6 bg-brown-900/95 backdrop-blur-sm p-4 rounded-xl text-white shadow-lg border border-mustard-500/40 flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-wider text-mustard-400 font-bold">Especialidade dos Irmãos</p>
+                                    <p class="font-serif-title font-bold text-base text-cream-100">Bolo Ninho com Morango</p>
+                                </div>
+                                <span class="bg-mustard-500 text-brown-950 font-extrabold text-xs px-3 py-1.5 rounded-lg">R$ 75,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Vitrine de Produtos (Cardápio) -->
+    <section id="cardapio" class="py-16 bg-white border-y border-brown-200/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Título da Seção -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-mustard-600 font-bold text-xs sm:text-sm tracking-wider uppercase bg-cream-200 px-3.5 py-1.5 rounded-full border border-mustard-500/30">Feito no Dia</span>
+                <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-brown-900 mt-3 mb-3">Cardápio de Delícias</h2>
+                <p class="text-brown-800/80 text-sm sm:text-base">Escolha entre nossas opções doces e salgadas preparadas pela equipe da 5 Irmãos.</p>
+            </div>
+
+            <!-- Filtros por Categoria e Campo de Busca -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+                
+                <!-- Botões de Categoria -->
+                <div id="category-filters" class="flex flex-wrap items-center justify-center gap-2 w-full md:w-auto">
+                    <button data-category="todos" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 bg-mustard-500 text-brown-950 shadow-md">Todos</button>
+                    <button data-category="bolos-tortas" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 bg-cream-100 text-brown-900 hover:bg-cream-200 border border-brown-200">Bolos & Tortas</button>
+                    <button data-category="doces-finos" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 bg-cream-100 text-brown-900 hover:bg-cream-200 border border-brown-200">Doces Finos</button>
+                    <button data-category="salgados" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 bg-cream-100 text-brown-900 hover:bg-cream-200 border border-brown-200">Salgados & Assados</button>
+                    <button data-category="sobremesas" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 bg-cream-100 text-brown-900 hover:bg-cream-200 border border-brown-200">Sobremesas</button>
+                </div>
+
+                <!-- Input de Busca -->
+                <div class="relative w-full md:w-80">
+                    <input type="text" id="search-input" placeholder="Procure seu doce favorito..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-cream-100 border border-brown-200 text-sm text-brown-900 placeholder-brown-800/50 focus:outline-none focus:ring-2 focus:ring-mustard-500 focus:border-mustard-500 transition-all shadow-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-brown-800/50 text-sm"></i>
+                </div>
+            </div>
+
+            <!-- Grid de Produtos Destaque -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Renderizado via JavaScript -->
+            </div>
+
+            <!-- Estado de Busca Vazia -->
+            <div id="no-results" class="hidden text-center py-16">
+                <div class="w-16 h-16 rounded-full bg-cream-200 text-mustard-600 flex items-center justify-center mx-auto mb-4 text-2xl border border-mustard-500/40">
+                    <i class="fa-solid fa-cookie-bite"></i>
+                </div>
+                <h3 class="font-serif-title text-xl font-bold text-brown-900 mb-2">Nenhuma delícia encontrada</h3>
+                <p class="text-brown-800/70 text-sm max-w-md mx-auto">Tente buscar por outros ingredientes ou escolha uma categoria diferente no filtro acima.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Recomendador Inteligente (Simulação do Serviço Python) -->
+    <section id="recomendador" class="py-16 md:py-20 relative overflow-hidden bg-cream-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border-2 border-brown-200 relative">
+                
+                <div class="text-center max-w-2xl mx-auto mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mustard-500/20 text-brown-900 font-bold text-xs mb-3 border border-mustard-500/30">
+                        <i class="fa-solid fa-robot text-mustard-600"></i>
+                        <span>Recomendador Inteligente Confeitaria 5 Irmãos</span>
+                    </div>
+                    <h2 class="font-serif-title text-2xl sm:text-3xl font-bold text-brown-900">Descubra o Doce Perfeito Para Você</h2>
+                    <p class="text-brown-800/80 text-sm mt-2">Selecione suas preferências de sabor e a inteligência da Confeitaria  Irmãos indicará a opção ideal para seu paladar!</p>
+                </div>
+
+                <!-- Opções de Seleção de Sabor -->
+                <div class="mb-8">
+                    <p class="text-xs font-bold text-brown-900 uppercase tracking-wider mb-4 text-center">Quais sabores e estilos você prefere?</p>
+                    <div id="flavor-options" class="flex flex-wrap justify-center gap-3">
+                        <label class="flavor-chip cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brown-200 bg-cream-100 text-brown-900 text-sm font-medium hover:border-mustard-500 transition-all">
+                            <input type="checkbox" value="chocolate" class="hidden">
+                            <i class="fa-solid fa-check text-xs opacity-0 transition-opacity text-mustard-600"></i>
+                            <span>Chocolate Intenso</span>
+                        </label>
+                        <label class="flavor-chip cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brown-200 bg-cream-100 text-brown-900 text-sm font-medium hover:border-mustard-500 transition-all">
+                            <input type="checkbox" value="frutas" class="hidden">
+                            <i class="fa-solid fa-check text-xs opacity-0 transition-opacity text-mustard-600"></i>
+                            <span>Frutas & Morango</span>
+                        </label>
+                        <label class="flavor-chip cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brown-200 bg-cream-100 text-brown-900 text-sm font-medium hover:border-mustard-500 transition-all">
+                            <input type="checkbox" value="doce-de-leite" class="hidden">
+                            <i class="fa-solid fa-check text-xs opacity-0 transition-opacity text-mustard-600"></i>
+                            <span>Doce de Leite Caseiro</span>
+                        </label>
+                        <label class="flavor-chip cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brown-200 bg-cream-100 text-brown-900 text-sm font-medium hover:border-mustard-500 transition-all">
+                            <input type="checkbox" value="cremoso" class="hidden">
+                            <i class="fa-solid fa-check text-xs opacity-0 transition-opacity text-mustard-600"></i>
+                            <span>Textura Cremosa</span>
+                        </label>
+                        <label class="flavor-chip cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-brown-200 bg-cream-100 text-brown-900 text-sm font-medium hover:border-mustard-500 transition-all">
+                            <input type="checkbox" value="salgado" class="hidden">
+                            <i class="fa-solid fa-check text-xs opacity-0 transition-opacity text-mustard-600"></i>
+                            <span>Salgado / Assado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botão de Ação -->
+                <div class="text-center">
+                    <button id="recommend-btn" class="px-8 py-3.5 rounded-xl bg-brown-900 hover:bg-brown-950 text-white font-bold transition-all duration-300 shadow-md flex items-center gap-2 mx-auto">
+                        <i class="fa-solid fa-wand-magic-sparkles text-mustard-400"></i>
+                        <span>Gerar Sugestão Personalizada</span>
+                    </button>
+                </div>
+
+                <!-- Resultado da Recomendação -->
+                <div id="recommendation-result" class="hidden mt-8 pt-8 border-t border-brown-200">
+                    <div class="bg-cream-100 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 border border-mustard-500/40">
+                        <img id="rec-img" src="" alt="Produto Recomendado" class="w-32 h-32 rounded-xl object-cover shadow-md flex-shrink-0 border-2 border-white">
+                        <div class="flex-1 text-center md:text-left">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-brown-950 bg-mustard-500 px-3 py-1 rounded-full">Recomendado Para Você ★</span>
+                            <h3 id="rec-title" class="font-serif-title text-xl font-bold text-brown-900 mt-2">Nome do Produto</h3>
+                            <p id="rec-desc" class="text-brown-800/80 text-sm mt-1 mb-3">Descrição detalhada da recomendação...</p>
+                            <div class="flex items-center justify-center md:justify-start gap-4">
+                                <span id="rec-price" class="font-bold text-lg text-brown-900">R$ 0,00</span>
+                                <button id="rec-add-btn" class="px-5 py-2 rounded-lg bg-mustard-500 hover:bg-mustard-600 text-brown-950 text-sm font-bold transition-colors shadow-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Nós -->
+    <section id="sobre" class="py-16 bg-white border-t border-brown-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1000&q=80" alt="Confeitaria 5 Irmãos Produção Artesanal" class="rounded-3xl shadow-xl w-full h-[400px] object-cover border-4 border-cream-200">
+                    <div class="absolute -bottom-6 -right-6 bg-brown-900 text-cream-100 p-6 rounded-2xl shadow-lg hidden sm:block max-w-xs border border-mustard-500">
+                        <p class="font-serif-title italic text-xs">"Desde 2018 vendendos os melhores doces caseiros e Gourmet da cidade do Rio de Janeiro."</p>
+                        <p class="text-[11px] font-bold text-mustard-400 mt-2">— Confeitaria 5 Irmãos</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <span class="text-mustard-600 font-bold text-xs tracking-wider uppercase bg-cream-200 px-3 py-1.5 rounded-full border border-mustard-500/30">Nossa Tradição</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-brown-900">A História da Confeitaria 5 Irmãos</h2>
+                    <p class="text-brown-800/80 leading-relaxed text-sm sm:text-base">
+Tudo começou em casa, quando eu fazia bolos caseiros para o nosso lanche. Quem provava sempre dizia: “Você deveria fazer para vender!” 🥰
+
+Na época, eu era mãe de um menino de 13 anos e estava grávida de gêmeas. Foi então que decidi acreditar naquele incentivo e dar o primeiro passo.
+
+Comecei de forma simples, com bolos caseirinhos, cones trufados, suspiros, cookies e copo pudim. E o que começou dentro de casa logo ganhou o coração dos clientes. Era um sucesso! ❤️                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-mustard-500/20 text-mustard-700 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brown-900 text-sm">Amor ao Ofício</h4>
+                                <p class="text-xs text-brown-800/70">Produção feita à mão</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-mustard-500/20 text-mustard-700 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-wheat-awn"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brown-900 text-sm">Sem Aditivos</h4>
+                                <p class="text-xs text-brown-800/70">Sabor natural de verdade</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrinho Lateral Deslizante (Slide-over Cart) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <div id="cart-overlay" class="absolute inset-0 bg-brown-950/50 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div id="cart-panel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col pointer-events-auto transform translate-x-full transition-transform duration-300">
+                
+                <!-- Cabeçalho do Carrinho -->
+                <div class="p-6 bg-cream-100 border-b border-brown-200 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-mustard-500 text-brown-950 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-serif-title text-lg font-bold text-brown-900">Seu Pedido</h2>
+                            <p id="drawer-item-count" class="text-xs text-brown-800/70">0 itens selecionados</p>
+                        </div>
+                    </div>
+                    <button id="close-cart-btn" class="p-2 text-brown-900 hover:bg-cream-200 rounded-lg transition-colors">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Lista de Itens do Carrinho -->
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Renderizado dinamicamente -->
+                </div>
+
+                <!-- Estado Vazio -->
+                <div id="cart-empty-state" class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+                    <div class="w-20 h-20 rounded-full bg-cream-200 text-mustard-600 flex items-center justify-center text-3xl mb-4">
+                        <i class="fa-solid fa-cookie"></i>
+                    </div>
+                    <h3 class="font-serif-title text-lg font-bold text-brown-900 mb-1">Seu carrinho está vazio</h3>
+                    <p class="text-xs text-brown-800/70 max-w-xs mb-6">Que tal escolher um bolo ou um doce bem gostoso da Confeitaria 5 Irmãos?</p>
+                    <button id="start-shopping-btn" class="px-6 py-2.5 rounded-xl bg-mustard-500 hover:bg-mustard-600 text-brown-950 font-bold text-sm transition-colors shadow-sm">
+                        Ver Cardápio
+                    </button>
+                </div>
+
+                <!-- Rodapé do Carrinho e Botão de WhatsApp -->
+                <div id="cart-footer" class="p-6 bg-cream-100 border-t border-brown-200 space-y-4 hidden">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs text-brown-800/70">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-brown-800/70">
+                            <span>Taxa de Entrega</span>
+                            <span class="text-emerald-700 font-semibold">A combinar</span>
+                        </div>
+                        <div class="flex items-center justify-between font-bold text-brown-900 text-base pt-2 border-t border-brown-200">
+                            <span>Total do Pedido</span>
+                            <span id="cart-total" class="text-mustard-600">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Botão Finalizar Pedido WhatsApp -->
+                    <button id="checkout-whatsapp-btn" class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Enviar Pedido pelo WhatsApp</span>
+                    </button>
+                    
+                    <p class="text-[11px] text-center text-brown-800/60">Atendimento humanizado direto com os atendentes da Confeitaria 5 Irmãos</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé Principal -->
+    <footer id="contato" class="bg-brown-950 text-cream-100 pt-16 pb-12 border-t-4 border-mustard-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Coluna 1: Info Marca -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-mustard-500 text-brown-950 font-bold flex items-center justify-center">
+                            <img src="5 irmaos.jfif" alt="">
+                        </div>
+                        <span class="font-serif-title font-bold text-xl text-cream-100">Confeitaria 5 Irmãos</span>
+                    </div>
+                    <p class="text-cream-200/70 text-xs leading-relaxed">
+                        Bolos artesanais, tortas finas, salgados quentinhos e Doces tradicionais e Gourmet de família produzidos com ingredientes selecionados.
+                    </p>
+                </div>
+
+                <!-- Coluna 2: Links -->
+                <div>
+                    <h4 class="font-serif-title font-bold text-mustard-400 text-sm mb-4">Navegação</h4>
+                    <ul class="space-y-2 text-xs text-cream-200/80">
+                        <li><a href="#inicio" class="hover:text-mustard-400 transition-colors">Início</a></li>
+                        <li><a href="#cardapio" class="hover:text-mustard-400 transition-colors">Cardápio de Doces & Salgados</a></li>
+                        <li><a href="#recomendador" class="hover:text-mustard-400 transition-colors">Recomendador Inteligente</a></li>
+                        <li><a href="#sobre" class="hover:text-mustard-400 transition-colors">Nossa História</a></li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Horários -->
+                <div>
+                    <h4 class="font-serif-title font-bold text-mustard-400 text-sm mb-4">Atendimento</h4>
+                    <ul class="space-y-2 text-xs text-cream-200/80">
+                        <li>Segunda a Sexta: 08:00 - 18:00</li>
+                        <li>Sábado: 08:00 - 13:00</li>
+                        <li>Encomendas com 24h de antecedência</li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Contato -->
+                <div>
+                    <h4 class="font-serif-title font-bold text-mustard-400 text-sm mb-4">Contato</h4>
+                    <ul class="space-y-2 text-xs text-cream-200/80">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-mustard-400"></i> Delivery 🛵</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-mustard-400"></i> (21) 99158-7557</li>
+                       <!-- <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-mustard-400"></i> contato@confeitaria3irmaos.com.br</li> -->
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-brown-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-cream-200/50 gap-4">
+                <p>© 2026 Confeitaria 5 Irmãos. Todos os direitos reservados.</p>
+                <div class="flex items-center gap-2 bg-brown-900 px-3 py-1.5 rounded-lg border border-brown-800">
+                    <i class="fa-solid fa-code text-mustard-400"></i>
+                    <span>Projeto de Portfólio (JS + PHP API + Python Service)</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Lógica de Negócio e Estado da Confeitaria 5 Irmãos
+         */
+
+        // Banco de Dados em Memória dos Produtos
+        const productsData = [
+            {
+                id: 1,
+                name: "Bolo Ninho com Morango",
+                category: "bolos-tortas",
+                price: 75.00,
+                rating: 5.0,
+                image: "ball.png",
+                description: "Massa pão de ló leve, recheada com brigadeiro de Leite Ninho e morangos frescos picados.",
+                tags: ["frutas", "cremoso"]
+            },
+            {
+                id: 2,
+                name: "red.jpeg",
+                category: "bolos-tortas",
+                price: 68.00,
+                rating: 4.9,
+                image: "red.jpeg",
+                description: "Bolo caseiro fofinho com centro super recheado de doce de leite artesanal da 3 Irmãos.",
+                tags: ["doce-de-leite", "cremoso"]
+            },
+            {
+                id: 3,
+                name: "Torta Supreme",
+                category: "doces-finos",
+                price: 42.00,
+                rating: 4.8,
+                image: "supreme.jpeg",
+                description: "Sortimento de brigadeiros de chocolate belga, churros, maracujá e pistache.",
+                tags: ["chocolate", "doce-de-leite"]
+            },
+            {
+                id: 4,
+                name: "Coxinha de Frango com Requeijão (10un)",
+                category: "salgados",
+                price: 38.00,
+                rating: 5.0,
+                image: "tortalimao.jpeg",
+                description: "Massa leve de batata, recheio generoso de frango desfiado temperado e requeijão cremoso.",
+                tags: ["salgado"]
+            },
+            {
+                id: 5,
+                name: "Empadão de Palmito & Queijo",
+                category: "salgados",
+                price: 45.00,
+                rating: 4.7,
+                image: "",
+                description: "Massa podre tradicional que derrete na boca com recheio cremoso de palmito e queijo derretido.",
+                tags: ["salgado", "cremoso"]
+            },
+            {
+                id: 6,
+                name: "Torta Holandesa Cremosa",
+                category: "sobremesas",
+                price: 65.00,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=600&q=80",
+                description: "Creme suave de baunilha, cobertura de ganache de chocolate e biscoitos cobertos na borda.",
+                tags: ["chocolate", "cremoso"]
+            },
+            {
+                id: 7,
+                name: "Pudim de Leite Condensado da Vovó",
+                category: "sobremesas",
+                price: 35.00,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=600&q=80",
+                description: "Pudim sem furinhos, extremamente liso e cremoso com calda de caramelo dourado.",
+                tags: ["cremoso", "doce-de-leite"]
+            },
+            {
+                id: 8,
+                name: "Torta Cítrica de Maracujá",
+                category: "sobremesas",
+                price: 58.00,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
+                description: "Mousse leve de maracujá com calda de frutas naturais e sementes crocantes.",
+                tags: ["frutas"]
+            }
+        ];
+
+        // Estado do Carrinho de Compras
+        let cart = [];
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCartFromStorage();
+            renderProducts(productsData);
+            setupEventListeners();
+            setupFlavorChips();
+        });
+
+        // Formatação de Moeda
+        function formatBRL(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
+
+        // Renderizar Lista de Produtos
+        function renderProducts(items) {
+            const grid = document.getElementById('products-grid');
+            const noResults = document.getElementById('no-results');
+
+            if (!items || items.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = items.map(product => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-warm border border-brown-200/80 hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative overflow-hidden h-48 bg-cream-100">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-brown-900/90 text-cream-100 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                            ${product.category.replace('-', ' ')}
+                        </span>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-mustard-600 text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm">
+                            <i class="fa-solid fa-star"></i>
+                            <span>${product.rating}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-serif-title font-bold text-brown-900 text-base group-hover:text-mustard-600 transition-colors line-clamp-1">${product.name}</h3>
+                            <p class="text-brown-800/70 text-xs mt-1.5 line-clamp-2 leading-relaxed">${product.description}</p>
+                        </div>
+
+                        <div class="pt-3 border-t border-brown-200/60 flex items-center justify-between">
+                            <div>
+                                <p class="text-[10px] text-brown-800/50 uppercase font-semibold">Valor</p>
+                                <p class="font-bold text-brown-900 text-base">${formatBRL(product.price)}</p>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="px-3.5 py-2 rounded-xl bg-mustard-500 hover:bg-mustard-600 text-brown-950 font-bold text-xs transition-all duration-300 flex items-center gap-1.5 shadow-sm active:scale-95">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Adicionar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filtros e Busca
+        function setupEventListeners() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-mustard-500', 'text-brown-950', 'shadow-md');
+                        b.classList.add('bg-cream-100', 'text-brown-900');
+                    });
+                    btn.classList.add('active', 'bg-mustard-500', 'text-brown-950', 'shadow-md');
+                    btn.classList.remove('bg-cream-100', 'text-brown-900');
+
+                    applyFilters();
+                });
+            });
+
+            document.getElementById('search-input').addEventListener('input', applyFilters);
+
+            // Gaveta do Carrinho
+            document.getElementById('open-cart-btn').addEventListener('click', openCartDrawer);
+            document.getElementById('close-cart-btn').addEventListener('click', closeCartDrawer);
+            document.getElementById('cart-overlay').addEventListener('click', closeCartDrawer);
+            document.getElementById('start-shopping-btn').addEventListener('click', () => {
+                closeCartDrawer();
+                window.location.hash = '#cardapio';
+            });
+
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // Botão Checkout
+            document.getElementById('checkout-whatsapp-btn').addEventListener('click', checkoutWhatsApp);
+
+            // Botão Recomendador Inteligente
+            document.getElementById('recommend-btn').addEventListener('click', runFlavorRecommender);
+        }
+
+        function applyFilters() {
+            const activeCategory = document.querySelector('.filter-btn.active').getAttribute('data-category');
+            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+
+            const filtered = productsData.filter(product => {
+                const matchesCategory = activeCategory === 'todos' || product.category === activeCategory;
+                const matchesSearch = product.name.toLowerCase().includes(searchQuery) || product.description.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            renderProducts(filtered);
+        }
+
+        // Adicionar Produto ao Carrinho
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            saveCartToStorage();
+            showToast(`"${product.name}" adicionado ao seu pedido!`);
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+
+            updateCartUI();
+            saveCartToStorage();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            updateCartUI();
+            saveCartToStorage();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const itemsContainer = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('cart-empty-state');
+            const footer = document.getElementById('cart-footer');
+            const itemCount = document.getElementById('drawer-item-count');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            badge.textContent = totalItems;
+            if (totalItems > 0) {
+                badge.classList.remove('scale-0');
+                badge.classList.add('scale-100');
+            } else {
+                badge.classList.remove('scale-100');
+                badge.classList.add('scale-0');
+            }
+
+            itemCount.textContent = `${totalItems} ${totalItems === 1 ? 'item selecionado' : 'itens selecionados'}`;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                footer.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                footer.classList.remove('hidden');
+
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center gap-4 p-3 bg-cream-100 rounded-xl border border-brown-200">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-white">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-brown-900 text-xs truncate">${item.name}</h4>
+                            <p class="text-xs text-mustard-600 font-bold mt-0.5">${formatBRL(item.price)}</p>
+                            
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 rounded bg-white border border-brown-200 text-brown-900 text-xs flex items-center justify-center hover:bg-cream-200">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <span class="text-xs font-bold text-brown-900">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 rounded bg-white border border-brown-200 text-brown-900 text-xs flex items-center justify-center hover:bg-cream-200">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-brown-800/40 hover:text-red-600 p-2 transition-colors">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `).join('');
+
+                document.getElementById('cart-subtotal').textContent = formatBRL(subtotal);
+                document.getElementById('cart-total').textContent = formatBRL(subtotal);
+            }
+        }
+
+        function openCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            drawer.classList.remove('pointer-events-none', 'opacity-0');
+            drawer.classList.add('opacity-100');
+            panel.classList.remove('translate-x-full');
+        }
+
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            panel.classList.add('translate-x-full');
+            drawer.classList.remove('opacity-100');
+            drawer.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function setupFlavorChips() {
+            const chips = document.querySelectorAll('.flavor-chip');
+            chips.forEach(chip => {
+                const checkbox = chip.querySelector('input[type="checkbox"]');
+                const checkIcon = chip.querySelector('i');
+
+                chip.addEventListener('click', (e) => {
+                    if (e.target !== checkbox) checkbox.checked = !checkbox.checked;
+                    
+                    if (checkbox.checked) {
+                        chip.classList.add('border-mustard-500', 'bg-mustard-500/10');
+                        checkIcon.classList.remove('opacity-0');
+                    } else {
+                        chip.classList.remove('border-mustard-500', 'bg-mustard-500/10');
+                        checkIcon.classList.add('opacity-0');
+                    }
+                });
+            });
+        }
+
+        // Recomendador
+        function runFlavorRecommender() {
+            const checkedFlavors = Array.from(document.querySelectorAll('#flavor-options input:checked')).map(cb => cb.value);
+
+            if (checkedFlavors.length === 0) {
+                showToast('Selecione pelo menos 1 opção de sabor!', 'warning');
+                return;
+            }
+
+            let bestMatch = null;
+            let maxScore = -1;
+
+            productsData.forEach(product => {
+                let score = 0;
+                product.tags.forEach(t => {
+                    if (checkedFlavors.includes(t)) score += 1;
+                });
+
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = product;
+                }
+            });
+
+            if (!bestMatch) bestMatch = productsData[0];
+
+            const resultBox = document.getElementById('recommendation-result');
+            document.getElementById('rec-img').src = bestMatch.image;
+            document.getElementById('rec-title').textContent = bestMatch.name;
+            document.getElementById('rec-desc').textContent = bestMatch.description;
+            document.getElementById('rec-price').textContent = formatBRL(bestMatch.price);
+
+            const addBtn = document.getElementById('rec-add-btn');
+            addBtn.onclick = () => {
+                addToCart(bestMatch.id);
+                openCartDrawer();
+            };
+
+            resultBox.classList.remove('hidden');
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // WhatsApp Checkout
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return;
+
+            const phone = "5511988883333";
+            let text = "*Pedido - Confeitaria 5 Irmãos*\n\n";
+            text += "*Itens Escolhidos:*\n";
+
+            cart.forEach(item => {
+                text += `• ${item.quantity}x ${item.name} (${formatBRL(item.price * item.quantity)})\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            text += `\n*Total do Pedido:* ${formatBRL(total)}\n\n`;
+            text += "Olá, gostaria de confirmar a taxa de entrega e o pagamento!";
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+        }
+
+        // Toast Component
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const bgClass = type === 'warning' ? 'bg-amber-700' : 'bg-brown-900';
+
+            toast.className = `pointer-events-auto flex items-center gap-3 ${bgClass} text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium transform translate-x-full transition-transform duration-300 border border-mustard-500/30`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'warning' ? 'fa-triangle-exclamation text-mustard-400' : 'fa-circle-check text-mustard-400'} text-base"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Storage
+        function saveCartToStorage() {
+            localStorage.setItem('confeitaria3irmaos_cart', JSON.stringify(cart));
+        }
+
+        function loadCartFromStorage() {
+            const saved = localStorage.getItem('confeitaria3irmaos_cart');
+            if (saved) {
+                try {
+                    cart = JSON.parse(saved);
+                    updateCartUI();
+                } catch (e) {
+                    cart = [];
+                }
+            }
+        }
+    </script>
+</body>
+</html>
